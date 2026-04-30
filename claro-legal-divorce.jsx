@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { supabase } from "./supabaseClient.js";
 
 // ── Bilingual UI Sections & Questions ────────────────────────────────────────
 const SECTIONS = [
@@ -582,10 +583,103 @@ export default function App() {
   });
   useEffect(() => { try { localStorage.setItem("claro_lang", lang); } catch {} }, [lang]);
 
+  // ── Phase 3 — Supabase save/load ──────────────────────────────────────────
+  const [loaded, setLoaded] = useState(false);
+  const [userId, setUserId] = useState(null);
+  const [userEmail, setUserEmail] = useState("");
+  const [saveStatus, setSaveStatus] = useState("idle"); // idle | saving | saved | error
+  const saveTimerRef = useRef(null);
+  const lastSavedRef = useRef("");
+
+  // Initial load: fetch user + their saved row (if any)
+  useEffect(() => {
+    let cancelled = false;
+    async function init() {
+      if (!supabase) { setLoaded(true); return; }
+      try {
+        const { data: userData } = await supabase.auth.getUser();
+        if (cancelled) return;
+        const user = userData && userData.user;
+        if (!user) { setLoaded(true); return; }
+        setUserId(user.id);
+        setUserEmail(user.email || "");
+        const { data: row, error } = await supabase
+          .from("form_responses")
+          .select("responses, tier, status")
+          .eq("user_id", user.id)
+          .maybeSingle();
+        if (cancelled) return;
+        if (error) { console.error("Load failed:", error); setLoaded(true); return; }
+        if (row && row.responses) {
+          const r = row.responses;
+          if (r._step !== undefined) setStep(r._step);
+          const { _step, ...formData } = r;
+          setData(formData);
+          lastSavedRef.current = JSON.stringify({ data: formData, step: r._step ?? 0 });
+        }
+        setLoaded(true);
+      } catch (err) {
+        console.error("Init error:", err);
+        if (!cancelled) setLoaded(true);
+      }
+    }
+    init();
+    return () => { cancelled = true; };
+  }, []);
+
+  // Debounced save: write to Supabase 800ms after last change
+  useEffect(() => {
+    if (!loaded || !userId || !supabase) return;
+    const snapshot = JSON.stringify({ data, step });
+    if (snapshot === lastSavedRef.current) return; // nothing changed since last save
+    if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
+    setSaveStatus("saving");
+    saveTimerRef.current = setTimeout(async () => {
+      try {
+        const { error } = await supabase
+          .from("form_responses")
+          .upsert({
+            user_id: userId,
+            responses: { ...data, _step: step },
+            updated_at: new Date().toISOString(),
+          }, { onConflict: "user_id" });
+        if (error) {
+          console.error("Save failed:", error);
+          setSaveStatus("error");
+        } else {
+          lastSavedRef.current = snapshot;
+          setSaveStatus("saved");
+          setTimeout(() => setSaveStatus(s => s === "saved" ? "idle" : s), 1500);
+        }
+      } catch (err) {
+        console.error("Save threw:", err);
+        setSaveStatus("error");
+      }
+    }, 800);
+    return () => { if (saveTimerRef.current) clearTimeout(saveTimerRef.current); };
+  }, [data, step, loaded, userId]);
+
+  async function handleLogout() {
+    try { await supabase.auth.signOut(); } catch (e) { console.error(e); }
+    window.location.reload();
+  }
+
   const total = SECTIONS.length;
   const update = (id, val) => setData(p => ({ ...p, [id]: val }));
   const visible = (f) => !f.showIf || data[f.showIf.id] === f.showIf.value;
   const progress = step === 0 ? 0 : step > total ? 100 : Math.round((step / (total + 1)) * 100);
+
+  // Show loading spinner until initial Supabase fetch completes
+  if (!loaded) {
+    return (
+      <div style={{minHeight:"100vh",background:cream,...base,display:"flex",alignItems:"center",justifyContent:"center"}}>
+        <div style={{textAlign:"center",color:navy}}>
+          <div style={{fontSize:"32px",marginBottom:"12px"}}>⚖️</div>
+          <div style={{fontSize:"14px",color:muted,fontStyle:"italic"}}>{lang==="en" ? "Loading your saved progress…" : "Cargando tu progreso guardado…"}</div>
+        </div>
+      </div>
+    );
+  }
 
   function downloadDoc(docId) {
     const engData = buildEnglishData(data);
@@ -635,6 +729,46 @@ export default function App() {
     </div>
   );
 
+  const SaveIndicator = () => {
+    if (!userId) return null;
+    const labels = {
+      saving: lang==="en" ? "Saving…" : "Guardando…",
+      saved: lang==="en" ? "✓ Saved" : "✓ Guardado",
+      error: lang==="en" ? "⚠ Save failed" : "⚠ Error al guardar",
+      idle: "",
+    };
+    const colors = { saving: "#c8a882", saved: "#88bb88", error: "#cc6666", idle: "transparent" };
+    if (saveStatus === "idle") return null;
+    return (
+      <div style={{fontSize:"11px",color:colors[saveStatus],letterSpacing:"0.03em",fontStyle:"italic",minWidth:"70px",textAlign:"right"}}>
+        {labels[saveStatus]}
+      </div>
+    );
+  };
+
+  const LogoutButton = () => {
+    if (!userId) return null;
+    return (
+      <button
+        onClick={handleLogout}
+        title={userEmail}
+        style={{
+          background:"rgba(255,255,255,0.08)",
+          color:cream,
+          border:"1px solid rgba(255,255,255,0.2)",
+          padding:"5px 10px",
+          borderRadius:"2px",
+          fontSize:"11px",
+          fontFamily:"inherit",
+          cursor:"pointer",
+          letterSpacing:"0.05em",
+          textTransform:"uppercase",
+        }}>
+        {lang==="en" ? "Sign out" : "Salir"}
+      </button>
+    );
+  };
+
   const TopBar = ({right}) => (
     <div style={{background:navy,padding:"0 32px",display:"flex",alignItems:"center",justifyContent:"space-between",height:"68px"}}>
       <div style={{display:"flex",flexDirection:"column",justifyContent:"center"}}>
@@ -643,9 +777,11 @@ export default function App() {
           {lang==="en" ? "By your side for every form." : "A tu lado en cada trámite."}
         </span>
       </div>
-      <div style={{display:"flex",alignItems:"center",gap:"16px"}}>
+      <div style={{display:"flex",alignItems:"center",gap:"14px"}}>
+        <SaveIndicator/>
         {right && <div style={{color:"#aab",fontSize:"13px"}}>{right}</div>}
         <LangToggle/>
+        <LogoutButton/>
       </div>
     </div>
   );
