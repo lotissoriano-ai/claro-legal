@@ -1,3 +1,22 @@
 [build]
   command = "npm run build"
   publish = "dist"
+
+# Serve marketing site at homepage
+[[redirects]]
+  from = "/"
+  to = "/claro-legal.html"
+  status = 200
+  force = true
+
+# Serve app at /app/*
+[[redirects]]
+  from = "/app/*"
+  to = "/index.html"
+  status = 200
+
+# Fallback to marketing site
+[[redirects]]
+  from = "/*"
+  to = "/claro-legal.html"
+  status = 404
