@@ -76,21 +76,24 @@ body {
   border-color:rgba(255,255,255,0.5);
 }
 
-/* NAV */
-nav {
-  position:sticky; top:0; z-index:100;
-  display:flex; justify-content:space-between; align-items:center;
-  padding:18px 60px;
-  background:rgba(255,254,249,0.95);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border);
-  box-shadow:0 1px 0 var(--border);
+<nav>
+     <a href="#" class="logo-link">
+       <img src="claro_logo.png" alt="Claro Legal" class="logo-img">
+     </a>
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
 }
-.logo {
-  font-family:'Playfair Display',serif;
-  font-size:1.6rem; font-weight:700;
-  color:var(--navy); letter-spacing:-0.5px;
-  text-decoration:none;
+
+.logo-img {
+  height: 50px;
+  width: auto;
+  transition: transform 0.2s;
+}
+
+.logo-img:hover {
+  transform: scale(1.05);
 }
 .logo span { color:var(--blue); }
 .nav-links { display:flex; gap:32px; align-items:center; }
