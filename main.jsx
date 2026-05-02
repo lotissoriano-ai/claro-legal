@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom/client'
 import { supabase } from './supabaseClient.js'
 import App from './claro-legal-divorce.jsx'
 
+// ── Phase 4 — Consent versioning ─────────────────────────────────────────────
+const TOS_VERSION = 'v2.0'
+const PP_VERSION  = 'v1.0'
+
 const NAVY = '#1B2A4E'
 const CREAM = '#FAF7F2'
 const GOLD = '#C9A961'
@@ -35,6 +39,12 @@ const STRINGS = {
     error_weak_password: 'La contraseña debe tener al menos 6 caracteres.',
     error_invalid_email: 'Correo inválido.',
     error_generic: 'Algo salió mal. Inténtalo de nuevo.',
+    tosCheckboxPre: 'He leído y acepto los',
+    tosLink: 'Términos de Uso',
+    tosAnd: 'y la',
+    privacyLink: 'Política de Privacidad',
+    tosCheckboxPost: 'de Claro Legal.',
+    tosRequired: 'Debes aceptar los Términos de Uso y la Política de Privacidad para continuar.',
   },
   en: {
     welcome: 'Welcome to Claro Legal',
@@ -61,6 +71,12 @@ const STRINGS = {
     error_weak_password: 'Password must be at least 6 characters.',
     error_invalid_email: 'Invalid email address.',
     error_generic: 'Something went wrong. Please try again.',
+    tosCheckboxPre: 'I have read and agree to the',
+    tosLink: 'Terms of Use',
+    tosAnd: 'and the',
+    privacyLink: 'Privacy Policy',
+    tosCheckboxPost: 'of Claro Legal.',
+    tosRequired: 'You must accept the Terms of Use and Privacy Policy to continue.',
   },
 }
 
@@ -77,14 +93,16 @@ function mapError(rawMessage, lang) {
 
 function AuthScreen({ lang, setLang }) {
   const t = STRINGS[lang]
-  const [mode, setMode] = useState('signIn')
+  const [mode, setMode] = useState('signIn') // signIn | signUp | forgot
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [busy, setBusy] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
   const [successMsg, setSuccessMsg] = useState('')
+  const [tosConsented, setTosConsented] = useState(false)
 
   function clearMessages() { setErrorMsg(''); setSuccessMsg('') }
+  function switchMode(newMode) { setMode(newMode); clearMessages(); setTosConsented(false) }
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -95,7 +113,17 @@ function AuthScreen({ lang, setLang }) {
         const { error } = await supabase.auth.signInWithPassword({ email, password })
         if (error) setErrorMsg(mapError(error.message, lang))
       } else if (mode === 'signUp') {
-        const { error } = await supabase.auth.signUp({ email, password })
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              tos_version:       TOS_VERSION,
+              pp_version:        PP_VERSION,
+              tos_consented_at:  new Date().toISOString(),
+            }
+          }
+        })
         if (error) setErrorMsg(mapError(error.message, lang))
         else setSuccessMsg(t.confirmEmail)
       } else if (mode === 'forgot') {
@@ -137,7 +165,7 @@ function AuthScreen({ lang, setLang }) {
             <div style={{ display: 'flex', gap: 0, marginBottom: 20, borderBottom: `1px solid ${GOLD}55` }}>
               {tabs.map(tab => (
                 <button key={tab.id} type="button"
-                  onClick={() => { setMode(tab.id); clearMessages() }}
+                  onClick={() => switchMode(tab.id)}
                   style={tabBtnStyle(mode === tab.id)}>{tab.label}</button>
               ))}
             </div>
@@ -154,20 +182,42 @@ function AuthScreen({ lang, setLang }) {
               </>
             )}
 
+            {mode === 'signUp' && (
+              <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, marginTop: 18, cursor: 'pointer' }}>
+                <input
+                  type="checkbox"
+                  checked={tosConsented}
+                  onChange={e => setTosConsented(e.target.checked)}
+                  style={{ marginTop: 3, flexShrink: 0, accentColor: NAVY, width: 16, height: 16, cursor: 'pointer' }}
+                />
+                <span style={{ fontSize: 13, color: INK, lineHeight: 1.5 }}>
+                  {t.tosCheckboxPre}{' '}
+                  <a href="/terms.html" target="_blank" rel="noopener noreferrer" style={{ color: NAVY, fontWeight: 600 }}>{t.tosLink}</a>
+                  {' '}{t.tosAnd}{' '}
+                  <a href="/privacy.html" target="_blank" rel="noopener noreferrer" style={{ color: NAVY, fontWeight: 600 }}>{t.privacyLink}</a>
+                  {' '}{t.tosCheckboxPost}
+                </span>
+              </label>
+            )}
+
             {errorMsg && <div style={errorStyle}>{errorMsg}</div>}
             {successMsg && <div style={successStyle}>{successMsg}</div>}
 
-            <button type="submit" disabled={busy} style={primaryBtnStyle(busy)}>
+            <button
+              type="submit"
+              disabled={busy || (mode === 'signUp' && !tosConsented)}
+              style={primaryBtnStyle(busy || (mode === 'signUp' && !tosConsented))}
+            >
               {busy ? t.busy : mode === 'signIn' ? t.signInButton : mode === 'signUp' ? t.signUpButton : t.forgotButton}
             </button>
           </form>
 
           <div style={{ textAlign: 'center', marginTop: 16 }}>
             {mode === 'signIn' && (
-              <button type="button" onClick={() => { setMode('forgot'); clearMessages() }} style={linkBtnStyle}>{t.forgotLink}</button>
+              <button type="button" onClick={() => switchMode('forgot')} style={linkBtnStyle}>{t.forgotLink}</button>
             )}
             {mode === 'forgot' && (
-              <button type="button" onClick={() => { setMode('signIn'); clearMessages() }} style={linkBtnStyle}>← {t.backLink}</button>
+              <button type="button" onClick={() => switchMode('signIn')} style={linkBtnStyle}>← {t.backLink}</button>
             )}
           </div>
         </div>
