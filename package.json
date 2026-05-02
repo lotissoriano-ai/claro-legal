@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
- "build": "vite build && cp claro-legal.html dist/"
+    "build": "vite build && cp claro-legal.html dist/",
     "preview": "vite preview"
   },
   "dependencies": {
