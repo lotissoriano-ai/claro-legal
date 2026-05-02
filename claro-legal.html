@@ -265,7 +265,127 @@ h1 em { font-style:italic; color:var(--blue); }
   color:rgba(255,255,255,0.85); font-size:0.85rem; font-weight:400;
 }
 
+<!-- COMPARISON TABLE SECTION -->
+<section class="comparison-section" id="comparison">
+  <div class="comparison-container">
+    <div class="section-header">
+      <div class="section-eyebrow">COMPARACIÓN DE PRECIOS</div>
+      <h2>La Única Plataforma 100% Bilingüe</h2>
+      <p class="section-subtitle">Ahorra entre $400 y $10,201 vs la competencia</p>
+    </div>
 
+    <div class="comparison-table-wrapper">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th class="feature-col">Servicio</th>
+            <th class="claro-col">
+              <div class="provider-logo">Claro Legal</div>
+              <div class="provider-badge">★ BILINGÜE</div>
+            </th>
+            <th>divorce.com</th>
+            <th>Hello Divorce</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- DIY Tier -->
+          <tr>
+            <td class="feature-name"><strong>DIY Básico</strong></td>
+            <td class="claro-col price-cell">
+              <div class="price">$349</div>
+              <div class="price-note">+ $210 corte</div>
+            </td>
+            <td class="price-cell">
+              <div class="price-na">—</div>
+            </td>
+            <td class="price-cell">
+              <div class="price">$400</div>
+              <div class="price-note">+ $210 corte</div>
+            </td>
+          </tr>
+
+          <!-- Guided Tier -->
+          <tr class="highlight-row">
+            <td class="feature-name"><strong>Guiado</strong><br><span class="tier-note">MÁS POPULAR</span></td>
+            <td class="claro-col price-cell">
+              <div class="price">$599</div>
+              <div class="price-note">+ $210 corte</div>
+              <div class="savings">Ahorra $400</div>
+            </td>
+            <td class="price-cell">
+              <div class="price">$999</div>
+              <div class="price-note">pago único</div>
+            </td>
+            <td class="price-cell">
+              <div class="price">$2,300</div>
+              <div class="price-note">o $199/mes</div>
+            </td>
+          </tr>
+
+          <!-- Plus Tier -->
+          <tr>
+            <td class="feature-name"><strong>Plus</strong></td>
+            <td class="claro-col price-cell">
+              <div class="price">$1,099</div>
+              <div class="price-note">+ $210 corte</div>
+            </td>
+            <td class="price-cell">
+              <div class="price-na">—</div>
+            </td>
+            <td class="price-cell">
+              <div class="price-na">—</div>
+            </td>
+          </tr>
+
+          <!-- Complex Tier -->
+          <tr>
+            <td class="feature-name"><strong>Casos Complejos</strong></td>
+            <td class="claro-col price-cell">
+              <div class="price">$2,299</div>
+              <div class="price-note">+ $210 corte</div>
+              <div class="savings">Ahorra $10,201</div>
+            </td>
+            <td class="price-cell">
+              <div class="price">$12,500</div>
+              <div class="price-note">pago único</div>
+            </td>
+            <td class="price-cell">
+              <div class="price-na">—</div>
+            </td>
+          </tr>
+
+          <!-- Key Features -->
+          <tr class="feature-row">
+            <td class="feature-name">Soporte Bilingüe (ES/EN)</td>
+            <td class="claro-col">✅</td>
+            <td>❌</td>
+            <td>❌</td>
+          </tr>
+
+          <tr class="feature-row">
+            <td class="feature-name">Pago Único (no suscripción)</td>
+            <td class="claro-col">✅</td>
+            <td>✅</td>
+            <td>❌</td>
+          </tr>
+
+          <tr class="feature-row">
+            <td class="feature-name">Especialistas en NY</td>
+            <td class="claro-col">✅</td>
+            <td>✅</td>
+            <td>✅</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="comparison-footer">
+      <p><strong>★ Claro Legal es la única plataforma 100% bilingüe</strong> — documentos, soporte y atención en el idioma que hablas.</p>
+      <a href="#quiz" class="btn-primary">Ver Si Califico →</a>
+    </div>
+  </div>
+</section>
+  
 /* SECTION BASE */
 section { padding:80px 60px; }
 .section-label {
@@ -357,6 +477,180 @@ section { padding:80px 60px; }
     padding: 24px;
   }
 }
+/* Comparison Table Section */
+.comparison-section {
+  padding: 80px 20px;
+  background: var(--light);
+}
+
+.comparison-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.section-eyebrow {
+  font-size: 0.75rem;
+  color: var(--blue);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--muted);
+}
+
+.comparison-table-wrapper {
+  overflow-x: auto;
+  margin-bottom: 40px;
+}
+
+.comparison-table {
+  width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  border-collapse: separate;
+  border-spacing: 0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.comparison-table thead th {
+  padding: 20px 16px;
+  text-align: center;
+  border-bottom: 2px solid var(--border);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--navy);
+}
+
+.comparison-table thead th.feature-col {
+  text-align: left;
+  width: 25%;
+}
+
+.comparison-table thead th.claro-col {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+  color: white;
+}
+
+.provider-logo {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.provider-badge {
+  font-size: 0.7rem;
+  opacity: 0.9;
+  font-weight: 600;
+}
+
+.comparison-table tbody td {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.comparison-table tbody td.feature-name {
+  text-align: left;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.tier-note {
+  font-size: 0.7rem;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.comparison-table tbody td.claro-col {
+  background: rgba(58,123,213,0.03);
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.price-note {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.price-na {
+  font-size: 1.2rem;
+  color: var(--muted);
+  opacity: 0.4;
+}
+
+.savings {
+  font-size: 0.75rem;
+  color: var(--success);
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.highlight-row {
+  background: rgba(58,123,213,0.02);
+}
+
+.highlight-row td.claro-col {
+  background: rgba(58,123,213,0.08);
+}
+
+.feature-row td {
+  font-size: 1.2rem;
+}
+
+.comparison-footer {
+  text-align: center;
+  padding: 32px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.comparison-footer p {
+  font-size: 1rem;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .comparison-table {
+    font-size: 0.8rem;
+  }
+  
+  .comparison-table thead th,
+  .comparison-table tbody td {
+    padding: 12px 8px;
+  }
+  
+  .price {
+    font-size: 1.2rem;
+  }
+  
+  .section-header h2 {
+    font-size: 1.5rem;
+  }
+}
+  
 /* BENEFITS */
 .benefits-grid {
   display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
