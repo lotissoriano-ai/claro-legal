@@ -265,157 +265,7 @@ h1 em { font-style:italic; color:var(--blue); }
   color:rgba(255,255,255,0.85); font-size:0.85rem; font-weight:400;
 }
 
-<!-- COMPARISON TABLE -->
-<section class="comparison-section" id="comparison" style="background: red !important; padding: 100px !important; min-height: 300px !important; color: white !important; font-size: 30px !important; display: block !important; position: relative !important; z-index: 9999 !important;">
-  <div class="comparison-container">
-    <div class="section-header">
-      <div class="section-eyebrow">COMPARACIÓN DE PRECIOS</div>
-      <h2 style="color: white; font-size: 50px;">TEST - CAN YOU SEE THIS?</h2>
-      <p class="section-subtitle">Ahorra entre $400 y $10,201 vs la competencia</p>
-    </div>
 
-    <div class="comparison-table-wrapper">
-      <table class="comparison-table">
-        <thead>
-          <tr>
-            <th class="feature-col">Servicio</th>
-            <th class="claro-col">
-              <div class="provider-logo">Claro Legal</div>
-              <div class="provider-badge">★ BILINGÜE</div>
-            </th>
-            <th>divorce.com</th>
-            <th>Hello Divorce</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- DIY Tier -->
-          <tr>
-            <td class="feature-name"><strong>DIY Básico</strong></td>
-            <td class="claro-col price-cell">
-              <div class="price">$349</div>
-              <div class="price-note">+ $210 corte</div>
-            </td>
-            <td class="price-cell">
-              <div class="price-na">—</div>
-            </td>
-            <td class="price-cell">
-              <div class="price">$400</div>
-              <div class="price-note">+ $210 corte</div>
-            </td>
-          </tr>
-
-          <!-- Guided Tier -->
-          <tr class="highlight-row">
-            <td class="feature-name"><strong>Guiado</strong><br><span class="tier-note">MÁS POPULAR</span></td>
-            <td class="claro-col price-cell">
-              <div class="price">$599</div>
-              <div class="price-note">+ $210 corte</div>
-              <div class="savings">Ahorra $400</div>
-            </td>
-            <td class="price-cell">
-              <div class="price">$999</div>
-              <div class="price-note">pago único</div>
-            </td>
-            <td class="price-cell">
-              <div class="price">$2,300</div>
-              <div class="price-note">o $199/mes</div>
-            </td>
-          </tr>
-
-          <!-- Plus Tier -->
-          <tr>
-            <td class="feature-name"><strong>Plus</strong></td>
-            <td class="claro-col price-cell">
-              <div class="price">$1,099</div>
-              <div class="price-note">+ $210 corte</div>
-            </td>
-            <td class="price-cell">
-              <div class="price-na">—</div>
-            </td>
-            <td class="price-cell">
-              <div class="price-na">—</div>
-            </td>
-          </tr>
-
-          <!-- Complex Tier -->
-          <tr>
-            <td class="feature-name"><strong>Casos Complejos</strong></td>
-            <td class="claro-col price-cell">
-              <div class="price">$2,299</div>
-              <div class="price-note">+ $210 corte</div>
-              <div class="savings">Ahorra $10,201</div>
-            </td>
-            <td class="price-cell">
-              <div class="price">$12,500</div>
-              <div class="price-note">pago único</div>
-            </td>
-            <td class="price-cell">
-              <div class="price-na">—</div>
-            </td>
-          </tr>
-
-          <!-- Key Features -->
-          <tr class="feature-row">
-            <td class="feature-name">Soporte Bilingüe (ES/EN)</td>
-            <td class="claro-col">✅</td>
-            <td>❌</td>
-            <td>❌</td>
-          </tr>
-
-          <tr class="feature-row">
-            <td class="feature-name">Pago Único (no suscripción)</td>
-            <td class="claro-col">✅</td>
-            <td>✅</td>
-            <td>❌</td>
-          </tr>
-
-          <tr class="feature-row">
-            <td class="feature-name">Especialistas en NY</td>
-            <td class="claro-col">✅</td>
-            <td>✅</td>
-            <td>✅</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="comparison-footer">
-      <p><strong>★ Claro Legal es la única plataforma 100% bilingüe</strong> — documentos, soporte y atención en el idioma que hablas.</p>
-      <a href="#quiz" class="btn-primary">Ver Si Califico →</a>
-    </div>
-  </div>
-</section>
-  
-/* SECTION BASE */
-section { padding:80px 60px; }
-.section-label {
-  font-size:0.7rem; font-weight:700; letter-spacing:0.15em;
-  text-transform:uppercase; color:var(--blue); margin-bottom:12px;
-}
-.section-title {
-  font-family:'Playfair Display',serif;
-  font-size:clamp(1.8rem,3vw,2.5rem);
-  font-weight:700; color:var(--navy); line-height:1.2;
-  margin-bottom:16px;
-}
-.section-sub { font-size:1rem; color:var(--muted); max-width:520px; line-height:1.7; font-weight:300; }
-
-/* HOW IT WORKS */
-.how { background:var(--cream); }
-.how-grid {
-  display:grid; grid-template-columns:repeat(3,1fr); gap:32px;
-  margin-top:52px;
-}
-.how-card {
-  background:#fff; border-radius:16px; padding:32px;
-  border:1px solid var(--border);
-  transition:transform 0.2s, box-shadow 0.2s, background 0.2s, border-color 0.2s;
-}
-.how-card:hover {
-  transform:translateY(-4px);
-  box-shadow:0 16px 40px rgba(58,123,213,0.15);
-  background:var(--blue-pale);
-  border-color:rgba(58,123,213,0.35);
 }
 .how-card:hover .how-num { color:rgba(58,123,213,0.25); }
 .how-card:hover h3 { color:var(--blue); }
@@ -1377,6 +1227,157 @@ footer {
 }
 
 </style>
+<!-- COMPARISON TABLE -->
+<section class="comparison-section" id="comparison" style="background: red !important; padding: 100px !important; min-height: 300px !important; color: white !important; font-size: 30px !important; display: block !important; position: relative !important; z-index: 9999 !important;">
+  <div class="comparison-container">
+    <div class="section-header">
+      <div class="section-eyebrow">COMPARACIÓN DE PRECIOS</div>
+      <h2 style="color: white; font-size: 50px;">TEST - CAN YOU SEE THIS?</h2>
+      <p class="section-subtitle">Ahorra entre $400 y $10,201 vs la competencia</p>
+    </div>
+
+    <div class="comparison-table-wrapper">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th class="feature-col">Servicio</th>
+            <th class="claro-col">
+              <div class="provider-logo">Claro Legal</div>
+              <div class="provider-badge">★ BILINGÜE</div>
+            </th>
+            <th>divorce.com</th>
+            <th>Hello Divorce</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- DIY Tier -->
+          <tr>
+            <td class="feature-name"><strong>DIY Básico</strong></td>
+            <td class="claro-col price-cell">
+              <div class="price">$349</div>
+              <div class="price-note">+ $210 corte</div>
+            </td>
+            <td class="price-cell">
+              <div class="price-na">—</div>
+            </td>
+            <td class="price-cell">
+              <div class="price">$400</div>
+              <div class="price-note">+ $210 corte</div>
+            </td>
+          </tr>
+
+          <!-- Guided Tier -->
+          <tr class="highlight-row">
+            <td class="feature-name"><strong>Guiado</strong><br><span class="tier-note">MÁS POPULAR</span></td>
+            <td class="claro-col price-cell">
+              <div class="price">$599</div>
+              <div class="price-note">+ $210 corte</div>
+              <div class="savings">Ahorra $400</div>
+            </td>
+            <td class="price-cell">
+              <div class="price">$999</div>
+              <div class="price-note">pago único</div>
+            </td>
+            <td class="price-cell">
+              <div class="price">$2,300</div>
+              <div class="price-note">o $199/mes</div>
+            </td>
+          </tr>
+
+          <!-- Plus Tier -->
+          <tr>
+            <td class="feature-name"><strong>Plus</strong></td>
+            <td class="claro-col price-cell">
+              <div class="price">$1,099</div>
+              <div class="price-note">+ $210 corte</div>
+            </td>
+            <td class="price-cell">
+              <div class="price-na">—</div>
+            </td>
+            <td class="price-cell">
+              <div class="price-na">—</div>
+            </td>
+          </tr>
+
+          <!-- Complex Tier -->
+          <tr>
+            <td class="feature-name"><strong>Casos Complejos</strong></td>
+            <td class="claro-col price-cell">
+              <div class="price">$2,299</div>
+              <div class="price-note">+ $210 corte</div>
+              <div class="savings">Ahorra $10,201</div>
+            </td>
+            <td class="price-cell">
+              <div class="price">$12,500</div>
+              <div class="price-note">pago único</div>
+            </td>
+            <td class="price-cell">
+              <div class="price-na">—</div>
+            </td>
+          </tr>
+
+          <!-- Key Features -->
+          <tr class="feature-row">
+            <td class="feature-name">Soporte Bilingüe (ES/EN)</td>
+            <td class="claro-col">✅</td>
+            <td>❌</td>
+            <td>❌</td>
+          </tr>
+
+          <tr class="feature-row">
+            <td class="feature-name">Pago Único (no suscripción)</td>
+            <td class="claro-col">✅</td>
+            <td>✅</td>
+            <td>❌</td>
+          </tr>
+
+          <tr class="feature-row">
+            <td class="feature-name">Especialistas en NY</td>
+            <td class="claro-col">✅</td>
+            <td>✅</td>
+            <td>✅</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="comparison-footer">
+      <p><strong>★ Claro Legal es la única plataforma 100% bilingüe</strong> — documentos, soporte y atención en el idioma que hablas.</p>
+      <a href="#quiz" class="btn-primary">Ver Si Califico →</a>
+    </div>
+  </div>
+</section>
+  
+/* SECTION BASE */
+section { padding:80px 60px; }
+.section-label {
+  font-size:0.7rem; font-weight:700; letter-spacing:0.15em;
+  text-transform:uppercase; color:var(--blue); margin-bottom:12px;
+}
+.section-title {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,3vw,2.5rem);
+  font-weight:700; color:var(--navy); line-height:1.2;
+  margin-bottom:16px;
+}
+.section-sub { font-size:1rem; color:var(--muted); max-width:520px; line-height:1.7; font-weight:300; }
+
+/* HOW IT WORKS */
+.how { background:var(--cream); }
+.how-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:32px;
+  margin-top:52px;
+}
+.how-card {
+  background:#fff; border-radius:16px; padding:32px;
+  border:1px solid var(--border);
+  transition:transform 0.2s, box-shadow 0.2s, background 0.2s, border-color 0.2s;
+}
+.how-card:hover {
+  transform:translateY(-4px);
+  box-shadow:0 16px 40px rgba(58,123,213,0.15);
+  background:var(--blue-pale);
+  border-color:rgba(58,123,213,0.35);
 </head>
 <body>
 
