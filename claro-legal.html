@@ -2804,6 +2804,13 @@ function proceedToPayment() {
   const message = lang === 'en' 
     ? '✅ Proceeding to Stripe payment with total: ' + document.getElementById('total-price').textContent
     : '✅ Procediendo al pago de Stripe con total: ' + document.getElementById('total-price').textContent;
+  
+  alert(message);
+  // Stripe integration would go here
+}
+</script>
+
+<!-- FAQ -->
 <!-- FAQ -->
 <section class="faq-section" id="faq">
   <div class="section-label" data-i18n="faq_label">FAQ</div>
