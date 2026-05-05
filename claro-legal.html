@@ -2477,7 +2477,7 @@ footer {
 // Pricing JavaScript
 let selectedPackage = '';
 let basePrice = 0;
-let selectedAddons = {
+let selectedAddonsPricing = {
   doc: false,
   attorney: false,
   online: false,
@@ -2505,7 +2505,7 @@ function selectPackage(packageName, price) {
   basePrice = price;
   
   // Reset addons
-  selectedAddons = {
+  selectedAddonsPricing = {
     doc: false,
     attorney: false,
     online: false,
